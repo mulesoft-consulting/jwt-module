@@ -1,0 +1,17 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jwt="http://www.mulesoft.org/schema/mule/jwt"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+          http://www.mulesoft.org/schema/mule/jwt http://www.mulesoft.org/schema/mule/jwt/current/mule-jwt.xsd">
+
+    <jwt:config name="rs256-config"
+                algorithm="RS256"
+                privateKeyPath="${mule.home}/src/test/resources/cert/pkcs8-private-key.pem"
+                publicKeyPath="${mule.home}/src/test/resources/cert/pkcs8-public-key.pem"/>
+
+    <flow name="jwtFlow">
+        <set-payload value="#[output application/json --- { 'aud': 'service.gov.uk', 'iss': '12345', 'iat': 1516239022 }]"/>
+        <jwt:sign config-ref="rs256-config"/>
+    </flow>
+
+</mule>

@@ -1,0 +1,6 @@
+uk/org/mule/jwt/internal/JwtErrorProvider.class
+uk/org/mule/jwt/internal/JwtOperations.class
+uk/org/mule/jwt/internal/JwtConfiguration.class
+uk/org/mule/jwt/internal/JwtError.class
+uk/org/mule/jwt/internal/JwtAlgorithm.class
+uk/org/mule/jwt/internal/JwtModule.class

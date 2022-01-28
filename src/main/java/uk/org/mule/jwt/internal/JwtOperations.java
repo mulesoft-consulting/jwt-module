@@ -2,9 +2,11 @@ package uk.org.mule.jwt.internal;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.mule.runtime.extension.api.annotation.error.Throws;
 import org.mule.runtime.extension.api.annotation.param.Content;
 import org.mule.runtime.extension.api.annotation.param.MediaType;
 import org.mule.runtime.extension.api.annotation.param.Config;
+import org.mule.runtime.extension.api.exception.ModuleException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,6 +21,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import static org.mule.runtime.extension.api.annotation.param.MediaType.APPLICATION_JSON;
+import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 
 /**
  * This class is a container for operations, every public method in this class will be taken as an extension operation.
@@ -27,7 +30,8 @@ public class JwtOperations {
     /**
      * Example of an operation that uses the configuration and a connection instance to perform some action.
      */
-    @MediaType(value = APPLICATION_JSON, strict = true)
+    @MediaType(value = TEXT_PLAIN, strict = false)
+    @Throws(JwtErrorProvider.class)
     public String sign(@Content(primary = true) Map<String, Object> payload, @Config JwtConfiguration config) {
         String jws = null;
         try {
@@ -39,12 +43,16 @@ public class JwtOperations {
             jws = Jwts.builder().setClaims(claims).signWith(privateKey, config.getAlgorithm()).compact();
         }
         catch (FileNotFoundException fnfe) {
+            throw new ModuleException(JwtError.FILE_NOT_FOUND, fnfe);
         }
         catch (IOException ioe) {
+            throw new ModuleException(JwtError.IO_ERROR, ioe);
         }
         catch (InvalidKeySpecException ikse) {
+            throw new ModuleException(JwtError.INVALID_KEY, ikse);
         }
         catch (NoSuchAlgorithmException nsae) {
+            throw new ModuleException(JwtError.NO_SUCH_ALGORITHM, nsae);
         }
         return jws;
     }

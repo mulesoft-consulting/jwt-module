@@ -12,7 +12,7 @@
 
     <groupId>uk.org.mule.jwt</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.5</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
     <description>A Mule extension that simplifies the process of generating or verifying a JWT token</description>

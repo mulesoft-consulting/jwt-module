@@ -19,37 +19,25 @@ import org.mule.runtime.extension.api.annotation.param.display.Summary;
 @DisplayName("jwt-config")
 public class JwtConfiguration {
 
-    @Parameter
     @DisplayName("Signature Algorithm")
     @Expression(ExpressionSupport.NOT_SUPPORTED)
+    @Parameter
     @Placement(order = 1)
-    @Summary("The encryption algorithm to be used when signing the token")
+    @Summary("The encryption algorithm to be used when signing/verifying the token")
     private JwtAlgorithm algorithm;
 
-    @Parameter
+    @DisplayName("PKCS#8 Key File")
+    @Example("${mule.home}/apps/${app.name}/certificates/private-key.pem")
+    @Expression(ExpressionSupport.SUPPORTED)
     @Optional
-    @DisplayName("Private Key File Path")
-    @Summary("Location of the private key file")
-    @Example("src/main/resources/certs/private-key.pem")
+    @Parameter
     @Placement(order = 2)
+    @Summary("Hint: Use ${mule.home} and ${app.name} to avoid hardcoding")
     private String privateKeyPath;
 
-    @Parameter
-    @Optional
-    @DisplayName("Public Key File Path")
-    @Summary("Location of the public key file")
-    @Example("src/main/resources/certs/public-key.pem")
-    @Placement(order = 3)
-    private String publicKeyPath;
-
     public SignatureAlgorithm getAlgorithm() { return algorithm.getAlgorithm(); }
-    public String getFamily() { return algorithm.getFamily(); }
 
     public String getPrivateKeyPath(){
         return privateKeyPath;
-    }
-
-    public String getPublicKeyPath(){
-        return publicKeyPath;
     }
 }

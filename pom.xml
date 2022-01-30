@@ -12,10 +12,10 @@
 
     <groupId>uk.org.mule.jwt</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>0.1.5</version>
+    <version>0.2.13</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
-    <description>A Mule extension that simplifies the process of generating or verifying a JWT token</description>
+    <description>A Mule 4 plugin that simplifies the process of generating a JWT token</description>
 
     <dependencies>
         <dependency>
@@ -32,11 +32,6 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.sdk</groupId>
-            <artifactId>mule-sdk-api</artifactId>
-            <version>0.4.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.InvalidKeyException;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.mule.runtime.extension.api.annotation.error.Throws;
@@ -19,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.PrivateKey;
-import java.security.Provider;
 import java.util.Map;
 
 import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
@@ -28,7 +26,6 @@ import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLA
  * This class is a container for operations, every public method in this class will be taken as an extension operation.
  */
 public class JwtOperations {
-    private static final Provider bcProvider = new BouncyCastleProvider();
     /**
      * Example of an operation that uses the configuration and a connection instance to perform some action.
      */
@@ -38,7 +35,7 @@ public class JwtOperations {
     public String sign(@Optional @Content Map<String, Object> header,
                        @Content(primary = true) Map<String, Object> payload,
                        @Config JwtConfiguration config) {
-        String jws = null;
+        String jws;
         try {
             Claims bodyClaims = Jwts.claims(payload);
             PEMParser parser = new PEMParser(new FileReader(config.getKeyPath()));

@@ -31,6 +31,6 @@ The component also requires that an associated configuration is defined that spe
 + The location of the PKCS#8-encoded private key to be used during signing
     + It is recommended to make use of the `${mule.home}` and `${app.name}` properties to avoid hardcoding
 
-![Configuration(/images/config-parameters.png)
+![Configuration](/images/config-parameters.png)
 
 The signed token returned can be however you wish, but would typically be incorporated into the `Authorization` header of a subsequent HTTP(S) request.

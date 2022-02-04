@@ -1,6 +1,8 @@
 # jwt-module
 ## Introduction
 
+![Logo](/images/social-preview.png)
+
 This repository contains a module that extends Mule 4 to simplify the generation of a signed [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token).
 
 Once incorporated into your Anypoint Studio project, it provides a single "Sign" component which allows for simple configuration.

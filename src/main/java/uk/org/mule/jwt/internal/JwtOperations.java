@@ -3,6 +3,7 @@ package uk.org.mule.jwt.internal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.InvalidKeyException;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.mule.runtime.extension.api.annotation.error.Throws;
 import org.mule.runtime.extension.api.annotation.param.Config;
 import org.mule.runtime.extension.api.annotation.param.Content;
@@ -15,9 +16,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
@@ -29,6 +28,7 @@ import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLA
  * This class is a container for operations, every public method in this class will be taken as an extension operation.
  */
 public class JwtOperations {
+    private static final Provider bcProvider = new BouncyCastleProvider();
     /**
      * Example of an operation that uses the configuration and a connection instance to perform some action.
      */
@@ -38,11 +38,12 @@ public class JwtOperations {
     public String sign(@Optional @Content Map<String, Object> header,
                        @Content(primary = true) Map<String, Object> body,
                        @Config JwtConfiguration config) {
-        String jws = null;
+        String jws;
         try {
             Claims bodyClaims = Jwts.claims(body);
-            String pkcs8Key = read(config.getPrivateKeyPath());
+            String pkcs8Key = read(config.getKeyPath());
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(pkcs8Key));
+            Security.addProvider(bcProvider);
             KeyFactory keyFactory = KeyFactory.getInstance(config.getAlgorithm().getFamilyName());
             PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
             if (header != null) {
@@ -71,7 +72,7 @@ public class JwtOperations {
     private static String read(final String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         StringBuilder builder = new StringBuilder();
-        String line = null;
+        String line;
         String lineSeparator = System.getProperty("line.separator");
         while ((line = reader.readLine()) != null) {
             builder.append(line);
@@ -85,8 +86,6 @@ public class JwtOperations {
         if (keyContents != null) {
             return keyContents.replace("-----BEGIN PRIVATE KEY-----", "").
                     replace("-----END PRIVATE KEY-----", "").
-                    replace("-----BEGIN PUBLIC KEY-----", "").
-                    replace("-----END PUBLIC KEY-----", "").
                     replace("\r", "").
                     replace("\n", "");
         }

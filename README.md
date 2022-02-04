@@ -47,7 +47,7 @@ The signed token returned can be used however you wish, but would typically be i
 The Sign component can result in one of the following errors occuring, if mis-configured:
 
 + JWT:FILE_NOT_FOUND
-    + If the path to the `PKCS#8 Key File` does not resolve to an existing file
+    + If the path to the `PKCS #8 Key File` does not resolve to an existing file
 + JWT:INVALID_KEY
     + If the algorithm selected and the private key identified do not align, or the private key is not [appropriately formatted](#notes)
 + JWT:IO_ERROR

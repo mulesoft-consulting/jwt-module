@@ -34,7 +34,7 @@ The "Sign" component can be placed into your flow like any other component, and 
 The component also requires that an associated configuration is defined that specifies:
 
 + The cryptographic algorithm to be used for signing
-+ The location of the PKCS#8-encoded private key to be used during signing
++ The location of the [PKCS #8](https://en.wikipedia.org/wiki/PKCS_8) private key to be used during signing
     + It is recommended to make use of the `${mule.home}` and `${app.name}` properties to avoid hardcoding
 
 ![Configuration](/images/config-parameters.png)
@@ -50,4 +50,4 @@ The Sign component can result in one of the following errors occuring, if mis-co
 + JWT:INVALID_KEY
     + If the algorithm selected and the private key identified do not align
 + JWT:IO_ERROR
-    + If some other error occurs during the process of reading the `PKCS#8 Key File`
+    + If some other error occurs during the process of reading the `PKCS #8 Key File`

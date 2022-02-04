@@ -19,11 +19,17 @@ Download the release JAR file and load it into your Anypoint Studio Maven reposi
 
 ## Usage
 
+### Appearance
+
 ![JWT Flow](/images/jwt-flow.png)
+
+### Component
 
 The "Sign" component can be placed into your flow like any other component, and allows you to specify the source for the JSON-formatted `header` and `payload` parts of the [structure](https://en.wikipedia.org/wiki/JSON_Web_Token#Structure):
 
 ![Sign parameters](/images/sign-parameters.png)
+
+### Configuration
 
 The component also requires that an associated configuration is defined that specifies:
 

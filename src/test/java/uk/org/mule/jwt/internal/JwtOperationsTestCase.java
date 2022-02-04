@@ -2,6 +2,7 @@ package uk.org.mule.jwt.internal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import org.mule.functional.junit4.MuleArtifactFunctionalTestCase;
 import org.junit.Test;
 
@@ -16,52 +17,72 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
     }
 
     @Test
+    public void fileNotFoundOperation() throws Exception {
+        String payloadValue = ((String) flowRunner("fileNotFoundFlow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, is("FILE_NOT_FOUND error raised and handled"));
+    }
+
+    @Test
+    public void invalidKeyOperation() throws Exception {
+        String payloadValue = ((String) flowRunner("invalidKeyFlow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, is("INVALID_KEY error raised and handled"));
+    }
+
+    @Test
+    public void signES256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("signES256Flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, startsWith("eyJraWQiOiIyMWZlMTgyNi1jYmJkLTQ4ZGMtYTU3ZS1jODk2MDc0ZTI1OTIiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ"));
+    }
+
+    @Test
+    public void signPS256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("signPS256Flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, startsWith("eyJraWQiOiI2ZTlmMDA3Ni0xOTBlLTQxMmUtODY4MC1kZGJiMTEyZTMyY2UiLCJhbGciOiJQUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ"));
+    }
+
+    @Test
     public void signRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("sign256Flow")
+        String payloadValue = ((String) flowRunner("signRS256Flow")
                 .run()
                 .getMessage()
                 .getPayload()
                 .getValue());
-        assertThat(payloadValue, is("eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.mhFRuLSTY-XPJCUpTEuwl-xsiecF07iYLCU1lM-Xqac2N39I-da8kn9csz2dTmdrDxYVyjNXivNuRbJJy41WjG_rSOsiNHhXbU4NNRB9fCc7dZlVHWltHuqBb-MUkbN1yEwiOOvCTsRu2y0mwGC18jHuf8-a8fw7OYvAcELKnNlaBMkwv-CFf6e5iYmxhhbtQvR9VETtN1qfjZH-oNWG9PD-MGr2-eadrII_wWgWcb58egJj0lGsHEC4MEM8qU545BwwzyiikUaqcuLjoZvAI-FvHePc_c_kJmAyem2BhuUnxMGDHOpCFe_FGoW8ryV3g9B703yhzIbMtzf1EetbfGYJ8MOnDlZf_0lhrGSjvjXF6EH9POempCKJ0Y_wZsIWGSrgUiemiuMOS10-FF0YvRMyHXp5g9eF0kKuvImKSVDydlb-NJQXeYd3YWMZpd_ppKF6rGW_jHMROeK-GzAUYJCKAwkf6uo2wen-p3-h7n3hUvnqKA5wpKJokLJxp4o52FMWHaOR3CK46mdMAxMg6Oe7NE0XxXBbZZ8fXpak8o7ZfNnaxROtg0DH2cAQR_od2vSFZDAwl64qcL8f6XoUP8Wjiru4rh1VmxLDnyKDM6jDd9gQVRajskdwr9g1Yjn-WJqQGM-nTaIaPB84kc0ztjWVoIGirFQNxZyg0lkPOmQ"));
+        assertThat(payloadValue, is("eyJraWQiOiIyYWJjNmNmOS04NjJmLTQwZjYtODEwNS1iZTU5NDNlZGRlZDMiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.T0A0BiGqgzsO8-FunObxtDwkbozKnpngkLHuQ0SF9R8jJNMHulHsZ-eG4ms3IEuOfX8L5xZgrHG42pynSnGyBl0tHhO_XP_IBz17YFX390mV23oPcmqmGg2atn8oTraHvbjfg23sgPMAKXPLa7KoULXH_govx_DW27kaSllohpWXo59djnUAD65H0XYeJENFoehWIQuGPLFg83_SE3e4ADYtEf98tLgGSau2Wc-wh0YatM8UfiFJGVty9rJPJAcGdaNbyEl6xE-BOIOZdP0qO9w-MMz75hZjSUvZ4VIkCvgWA9_iFs3fZGH6eFcT-a01HksJ_szZdqwuSREo18RF3g"));
     }
 
     @Test
-    public void signWithVariableRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("sign256Flow-withVariable")
+    public void signRS384Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("signRS384Flow")
                 .run()
                 .getMessage()
                 .getPayload()
                 .getValue());
-        assertThat(payloadValue, is("eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.mhFRuLSTY-XPJCUpTEuwl-xsiecF07iYLCU1lM-Xqac2N39I-da8kn9csz2dTmdrDxYVyjNXivNuRbJJy41WjG_rSOsiNHhXbU4NNRB9fCc7dZlVHWltHuqBb-MUkbN1yEwiOOvCTsRu2y0mwGC18jHuf8-a8fw7OYvAcELKnNlaBMkwv-CFf6e5iYmxhhbtQvR9VETtN1qfjZH-oNWG9PD-MGr2-eadrII_wWgWcb58egJj0lGsHEC4MEM8qU545BwwzyiikUaqcuLjoZvAI-FvHePc_c_kJmAyem2BhuUnxMGDHOpCFe_FGoW8ryV3g9B703yhzIbMtzf1EetbfGYJ8MOnDlZf_0lhrGSjvjXF6EH9POempCKJ0Y_wZsIWGSrgUiemiuMOS10-FF0YvRMyHXp5g9eF0kKuvImKSVDydlb-NJQXeYd3YWMZpd_ppKF6rGW_jHMROeK-GzAUYJCKAwkf6uo2wen-p3-h7n3hUvnqKA5wpKJokLJxp4o52FMWHaOR3CK46mdMAxMg6Oe7NE0XxXBbZZ8fXpak8o7ZfNnaxROtg0DH2cAQR_od2vSFZDAwl64qcL8f6XoUP8Wjiru4rh1VmxLDnyKDM6jDd9gQVRajskdwr9g1Yjn-WJqQGM-nTaIaPB84kc0ztjWVoIGirFQNxZyg0lkPOmQ"));
+        assertThat(payloadValue, is("eyJraWQiOiI0YjZlMjg4Yi0yMTNmLTQ0OGYtODU5Mi02MmQ2NDI2NTY2NTEiLCJhbGciOiJSUzM4NCJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.s_xD2ieItMiVyGE8slx2-Cks1beCJNh3T_CxzXG6MGGuPpDtCo-L5tOjYHlzXne_lkDvGGSGdkWeHJwBMwGjqiz5ZEGZ58bZeagjT0bA0LQcfzgBwMfFx3XgplydxqUhWWLMkQhuvnoLVLAttShF86SDCNj9QK21t2BjRCAOEaqkTEQF-IGL8mKG7zhZZPnDX1YmVTncDJ8OfnvLUt-yzasfs_GydyvkFXy3JOgl3imcFLyR4fQyIDOZkg4UCmDSFyLf3wr3xjM7vgwx0b8Mt2Dvr3NJj_1QnPZ6M-pdYwyV6OkO5SCmmZVpSWbOEZz6WDpAtth39BSA0MvpQmiLNA"));
     }
 
     @Test
-    public void signWithHeaderRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("sign256Flow-withHeader")
+    public void signRS512Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("signRS512Flow")
                 .run()
                 .getMessage()
                 .getPayload()
                 .getValue());
-        assertThat(payloadValue, is("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.GlMyJYVmG8-s_HXeyKegJ18Ru5oTPGn0ZU-UGvq72R3I51ui0jFV-5O3uyHv5IXgBRJtXj0reDwgNTUUsv5nd1fDLmjDg2FMuvChIUmYNZozWyEa86k8PsxsTGnhmt5Lt-TxbwjtYIjUI5LEEOOMj81DS5edbj0FQ_o6Dcb5mayvFZlDJD0KyUWGO1Gonmn5-gwF_geLREtV4y89nbfjSjPncY76wN_vRIRAa7Q6i_NgYg6Lbio7Fm4CahmWspht_xjE4z1ZUyijbJHKbHj2RF__yPjpdCf_i3rwCSSUiyfEt-HKWBDxFc5YxsJq588ng4mX9OM-dV8g9dhGpHnyG7faBlD5RTLF7YiZjo-9Cx9ngIdVi7hgz2ZOVsuxYvCkFsH0UhR_1O5wdWQOLLE4bo7XOccIQC8Qkzupctkgs1HebLF3Hz8fqvJbvIUiiVWheATgWSenfAZ_34e16IjlVmOlipR99hVwCAo91Cy_ICOfL-FV9OFc-Zvo3QeS_d0MC4uuMp2gbZ6YEmq_CGUGawsxIz1HKuyadlbHifsGyKeJ8h2RPZvvlRFWVncxTAlAax1Yd2jA93FsXZE7hNS2toe4ZlIhGaYdLgQhCdit70ZSTdsd-Hb1NALu7Ir3EZMgyccbTWRBK5la9laSTv8-YJrxH1Pb_NOXxLjjHZndXkQ"));
-    }
-
-    @Test
-    public void invalidFileRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("invalidFile256Flow")
-                .run()
-                .getMessage()
-                .getPayload()
-                .getValue());
-        assertThat(payloadValue, is("FILE_NOT_FOUND Exception raised and handled"));
-    }
-
-    @Test
-    public void invalidKeyRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("invalidKey256Flow")
-                .run()
-                .getMessage()
-                .getPayload()
-                .getValue());
-        assertThat(payloadValue, is("INVALID_KEY Exception raised and handled"));
+        assertThat(payloadValue, is("eyJraWQiOiJlZTBmZjIyYi0yZWQ1LTRmNzQtYTRlMS1hNDc0OWZhZmY3MWEiLCJhbGciOiJSUzUxMiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.H9ZyrdWaMrPhEmmPGE4WDpg-2fC2KNyg5bkxJW6cEezMVjyObFwJcIJb1Z5xS6PnMG_-azhElsnzINrgSJZD36wd_dW7FAlnHiKDLLExKv4uq5AYJc_7T7GvW9CuztWLkwDSaeC9any7w0z_VHD9K1elrT5yXYm1uIfGaO8mRCtFWM7O0ua1oXHfbMe7YUWvTdU6NnkTP4UYyBZe8zf5ANPQl9B5wO8Q0x0hsX7OPx9EdTxMIlFdEszNAJbXSLbZylBXb-Fnl5ucwoWtz6pBbbWrgLUmO_JVPONqju_4sXHouKSJKhEi8tL3vMCmwzG_Nsqs7jeLTDHa_qXCHhUTIg"));
     }
 }

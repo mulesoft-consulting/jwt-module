@@ -15,7 +15,7 @@ import org.mule.runtime.extension.api.annotation.param.display.Summary;
  * operations since they represent something core from the extension.
  */
 @Operations(JwtOperations.class)
-@DisplayName("JWT Configuration")
+@DisplayName("Configuration")
 public class JwtConfiguration {
 
     @DisplayName("Signature Algorithm")

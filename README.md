@@ -61,4 +61,4 @@ This module makes use of the following 3rd party libraries:
 
 ## Notes
 
-As mentioned above, this module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the `openssl` command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).
+As mentioned above, this module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).

@@ -33,7 +33,7 @@ The component also requires that an associated configuration is defined that spe
 
 ![Configuration](/images/config-parameters.png)
 
-The signed token returned can be however you wish, but would typically be incorporated into the `Authorization` header of a subsequent HTTP(S) request.
+The signed token returned can be used however you wish, but would typically be incorporated into the `Authorization` header of a subsequent HTTP(S) request.
 
 ## Errors Raised
 

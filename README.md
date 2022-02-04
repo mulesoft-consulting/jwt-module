@@ -48,7 +48,7 @@ The Sign component can result in one of the following errors occuring, if mis-co
 + JWT:FILE_NOT_FOUND
     + If the path to the `PKCS#8 Key File` does not resolve to an existing file
 + JWT:INVALID_KEY
-    + If the algorithm selected and the private key identified do not align
+    + If the algorithm selected and the private key identified do not align, or the private key is not [appropriately formatted](#Notes)
 + JWT:IO_ERROR
     + If some other error occurs during the process of reading the `PKCS #8 Key File`
 
@@ -61,4 +61,4 @@ This module makes use of the following 3rd party libraries:
 
 ## Notes
 
-As mentioned above, this module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).
+This module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).

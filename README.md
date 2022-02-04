@@ -51,3 +51,14 @@ The Sign component can result in one of the following errors occuring, if mis-co
     + If the algorithm selected and the private key identified do not align
 + JWT:IO_ERROR
     + If some other error occurs during the process of reading the `PKCS #8 Key File`
+
+## Dependencies
+
+This module makes use of the following 3rd party libraries:
+
++ The [jwt.io](https://jwt.io/) Java JWT library, [jjwt](https://github.com/jwtk/jjwt)
++ The [org.bouncycastle](https://www.bouncycastle.org/) cryptography library
+
+## Notes
+
+As mentioned above, this module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the `openssl` command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).

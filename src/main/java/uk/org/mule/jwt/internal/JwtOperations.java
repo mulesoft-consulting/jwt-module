@@ -36,11 +36,11 @@ public class JwtOperations {
     @MediaType(value = TEXT_PLAIN, strict = false)
     @Throws(JwtErrorProvider.class)
     public String sign(@Optional @Content Map<String, Object> header,
-                       @Content(primary = true) Map<String, Object> body,
+                       @Content(primary = true) Map<String, Object> payload,
                        @Config JwtConfiguration config) {
         String jws;
         try {
-            Claims bodyClaims = Jwts.claims(body);
+            Claims bodyClaims = Jwts.claims(payload);
             String pkcs8Key = read(config.getKeyPath());
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(pkcs8Key));
             Security.addProvider(bcProvider);

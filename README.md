@@ -34,3 +34,14 @@ The component also requires that an associated configuration is defined that spe
 ![Configuration](/images/config-parameters.png)
 
 The signed token returned can be however you wish, but would typically be incorporated into the `Authorization` header of a subsequent HTTP(S) request.
+
+## Errors Raised
+
+The Sign component can result in one of the following errors occuring, if mis-configured:
+
++ JWT:FILE_NOT_FOUND
+    + If the path to the `PKCS#8 Key File` does not resolve to an existing file
++ JWT:INVALID_KEY
+    + If the algorithm selected and the private key identified do not align
++ JWT:IO_ERROR
+    + If some other error occurs during the process of reading the `PKCS#8 Key File`

@@ -13,7 +13,6 @@ public class JwtErrorProvider implements ErrorTypeProvider {
         errors.add(JwtError.FILE_NOT_FOUND);
         errors.add(JwtError.INVALID_KEY);
         errors.add(JwtError.IO_ERROR);
-        errors.add(JwtError.NO_SUCH_ALGORITHM);
         return errors;
     }
 }

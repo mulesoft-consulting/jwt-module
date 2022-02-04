@@ -60,11 +60,8 @@ public class JwtOperations {
         catch (IOException ioe) {
             throw new ModuleException(JwtError.IO_ERROR, ioe);
         }
-        catch (InvalidKeyException | InvalidKeySpecException ike) {
-            throw new ModuleException(JwtError.INVALID_KEY, ike);
-        }
-        catch (NoSuchAlgorithmException nsae) {
-            throw new ModuleException(JwtError.NO_SUCH_ALGORITHM, nsae);
+        catch (InvalidKeyException | InvalidKeySpecException | NoSuchAlgorithmException ke) {
+            throw new ModuleException(JwtError.INVALID_KEY, ke);
         }
         return jws;
     }

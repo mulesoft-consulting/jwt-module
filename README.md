@@ -14,7 +14,7 @@ Download the release JAR file and load it into your Anypoint Studio Maven reposi
 <dependency>
   <groupId>uk.org.mule.jwt</groupId>
   <artifactId>jwt-module</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <classifier>mule-plugin</classifier>
 </dependency>
 ```

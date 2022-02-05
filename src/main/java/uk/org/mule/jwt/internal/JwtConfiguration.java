@@ -25,8 +25,8 @@ public class JwtConfiguration {
     @Summary("The encryption algorithm to be used when signing the token")
     private JwtAlgorithm algorithm;
 
-    @DisplayName("PKCS #8 Key File")
-    @Example("${mule.home}/apps/${app.name}/certs/pkcs8-private-key.pem")
+    @DisplayName("Private Key File")
+    @Example("${mule.home}/apps/${app.name}/certs/private-key.pem")
     @Expression(ExpressionSupport.SUPPORTED)
     @Parameter
     @Placement(order = 2)

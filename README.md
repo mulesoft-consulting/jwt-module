@@ -36,7 +36,7 @@ The "Sign" component can be placed into your flow like any other component, and 
 The component also requires that an associated configuration is defined that specifies:
 
 + The cryptographic algorithm to be used for signing
-+ The location of the [PKCS #8](https://en.wikipedia.org/wiki/PKCS_8) private key to be used during signing
++ The location of the `Private Key File` to be used during signing
     + It is recommended to make use of the `${mule.home}` and `${app.name}` properties to avoid hardcoding
 
 ![Configuration](/images/config-parameters.png)
@@ -48,11 +48,11 @@ The signed token returned can be used however you wish, but would typically be i
 The Sign component can result in one of the following errors occuring, if mis-configured:
 
 + JWT:FILE_NOT_FOUND
-    + If the path to the `PKCS #8 Key File` does not resolve to an existing file
+    + If the path to the `Private Key File` does not resolve to an existing file
 + JWT:INVALID_KEY
     + If the algorithm selected and the private key identified do not align, or the private key is not [appropriately formatted](#notes)
 + JWT:IO_ERROR
-    + If some other error occurs during the process of reading the `PKCS #8 Key File`
+    + If some other error occurs during the process of reading the `Private Key File`
 
 ## Dependencies
 
@@ -63,4 +63,5 @@ This module makes use of the following 3rd party libraries:
 
 ## Notes
 
-This module expects the private key used for signing to be supplied in PKCS #8 format. If your private key is not already in this format, it can be reformatted using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line, or also online via tools such as the [8gwifi.org](https://8gwifi.org/) converter available at [https://8gwifi.org/pemconvert.jsp](https://8gwifi.org/pemconvert.jsp).
+This module makes use of the BouncyCastle [PEMParser](https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/openssl/PEMParser.html) to parse the `Private Key File`, which expects the private key used for signing to be supplied in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
+If you are not sure whether your key meets this requirement, it is recommended to convert it into the [PKCS #8](https://en.wikipedia.org/wiki/PKCS_8) format, using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line or via online tools such as those at [8gwifi.org](https://8gwifi.org/).

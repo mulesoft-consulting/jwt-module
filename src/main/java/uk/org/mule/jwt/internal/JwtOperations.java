@@ -1,6 +1,6 @@
 package uk.org.mule.jwt.internal;
 
-import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.InvalidKeyException;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
@@ -23,11 +23,11 @@ import java.util.Map;
 import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 
 /**
- * This class is a container for operations, every public method in this class will be taken as an extension operation.
+ * This class provides the component-level implementation(s)
  */
 public class JwtOperations {
     /**
-     * Example of an operation that uses the configuration and a connection instance to perform some action.
+     * Implementation of the "Sign" component
      */
     @DisplayName("Sign")
     @MediaType(value = TEXT_PLAIN, strict = false)
@@ -37,21 +37,19 @@ public class JwtOperations {
                        @Config JwtConfiguration config) {
         String jws;
         try {
-            Claims bodyClaims = Jwts.claims(payload);
             PEMParser parser = new PEMParser(new FileReader(config.getKeyPath()));
             Object object = parser.readObject();
             if (object instanceof PrivateKeyInfo) {
                 JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
                 PrivateKey privateKey = converter.getPrivateKey((PrivateKeyInfo) object);
+                JwtBuilder builder = Jwts.builder().setClaims(Jwts.claims(payload));
                 if (header != null) {
-                    Claims headerClaims = Jwts.claims(header);
-                    jws = Jwts.builder().setHeader(headerClaims).setClaims(bodyClaims).signWith(privateKey, config.getAlgorithm()).compact();
-                } else {
-                    jws = Jwts.builder().setClaims(bodyClaims).signWith(privateKey, config.getAlgorithm()).compact();
+                    builder = builder.setHeader(Jwts.claims(header));
                 }
+                jws = builder.signWith(privateKey, config.getAlgorithm()).compact();
             }
             else {
-                throw new InvalidKeyException(config.getKeyPath() + " identified as " + object.getClass());
+                throw new InvalidKeyException(config.getKeyPath() + " is not a PrivateKey, but " + object.getClass());
             }
         }
         catch (FileNotFoundException fnfe) {

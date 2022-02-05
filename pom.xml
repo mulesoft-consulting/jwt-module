@@ -12,7 +12,7 @@
 
     <groupId>uk.org.mule.jwt</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
     <description>A Mule4 plugin that simplifies the process of generating a signed JSON Web Token</description>

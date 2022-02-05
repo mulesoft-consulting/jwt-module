@@ -30,7 +30,7 @@ public class JwtOperations {
      * Implementation of the "Sign" component
      */
     @DisplayName("Sign")
-    @MediaType(value = TEXT_PLAIN, strict = false)
+    @MediaType(value = TEXT_PLAIN)
     @Throws(JwtErrorProvider.class)
     public String sign(@Optional @Content Map<String, Object> header,
                        @Content(primary = true) Map<String, Object> payload,

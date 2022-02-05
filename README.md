@@ -1,7 +1,5 @@
 # jwt-module
 
-![Logo](/images/social-preview.png)
-
 ## Introduction
 
 This repository contains a module that extends Mule 4 to simplify the generation of a signed [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token).
@@ -29,7 +27,7 @@ Download the release JAR file and load it into your Anypoint Studio Maven reposi
 
 ### Component
 
-The "Sign" component can be placed into your flow like any other component, and allows you to specify the source for the JSON-formatted `header` and `payload` parts of the [JWT structure](https://en.wikipedia.org/wiki/JSON_Web_Token#Structure):
+The "Sign" component can be placed into your flow like any other component, and allows you to specify the source for the JSON-formatted `Header` and `Payload` parts of the [JWT structure](https://en.wikipedia.org/wiki/JSON_Web_Token#Structure):
 
 ![Sign parameters](/images/sign-parameters.png)
 

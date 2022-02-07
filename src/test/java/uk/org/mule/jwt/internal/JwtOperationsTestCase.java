@@ -18,7 +18,7 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
 
     @Test
     public void fileNotFoundOperation() throws Exception {
-        String payloadValue = ((String) flowRunner("fileNotFoundFlow")
+        String payloadValue = ((String) flowRunner("file-not-found-flow")
                 .run()
                 .getMessage()
                 .getPayload()
@@ -28,7 +28,7 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
 
     @Test
     public void invalidKeyOperation() throws Exception {
-        String payloadValue = ((String) flowRunner("invalidKeyFlow")
+        String payloadValue = ((String) flowRunner("invalid-key-flow")
                 .run()
                 .getMessage()
                 .getPayload()
@@ -37,28 +37,48 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
     }
 
     @Test
-    public void signES256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("signES256Flow")
+    public void signPKCS1ES256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs1-es256-flow")
                 .run()
                 .getMessage()
                 .getPayload()
                 .getValue());
-        assertThat(payloadValue, startsWith("eyJraWQiOiIyMWZlMTgyNi1jYmJkLTQ4ZGMtYTU3ZS1jODk2MDc0ZTI1OTIiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ"));
+        assertThat(payloadValue, startsWith("eyJraWQiOiIyMWZlMTgyNi1jYmJkLTQ4ZGMtYTU3ZS1jODk2MDc0ZTI1OTIiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ."));
     }
 
     @Test
-    public void signPS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("signPS256Flow")
+    public void signPKCS8ES256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs8-es256-flow")
                 .run()
                 .getMessage()
                 .getPayload()
                 .getValue());
-        assertThat(payloadValue, startsWith("eyJraWQiOiI2ZTlmMDA3Ni0xOTBlLTQxMmUtODY4MC1kZGJiMTEyZTMyY2UiLCJhbGciOiJQUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ"));
+        assertThat(payloadValue, startsWith("eyJraWQiOiIyMWZlMTgyNi1jYmJkLTQ4ZGMtYTU3ZS1jODk2MDc0ZTI1OTIiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ."));
+    }
+
+    @Test
+    public void signPKCS1PS256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs1-ps256-flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, startsWith("eyJraWQiOiI2ZTlmMDA3Ni0xOTBlLTQxMmUtODY4MC1kZGJiMTEyZTMyY2UiLCJhbGciOiJQUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ."));
+    }
+
+    @Test
+    public void signPKCS8PS256Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs8-ps256-flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, startsWith("eyJraWQiOiI2ZTlmMDA3Ni0xOTBlLTQxMmUtODY4MC1kZGJiMTEyZTMyY2UiLCJhbGciOiJQUzI1NiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ."));
     }
 
     @Test
     public void signRS256Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("signRS256Flow")
+        String payloadValue = ((String) flowRunner("sign-pkcs8-rs256-flow")
                 .run()
                 .getMessage()
                 .getPayload()
@@ -68,7 +88,7 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
 
     @Test
     public void signRS384Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("signRS384Flow")
+        String payloadValue = ((String) flowRunner("sign-pkcs8-rs384-flow")
                 .run()
                 .getMessage()
                 .getPayload()
@@ -77,8 +97,18 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
     }
 
     @Test
-    public void signRS512Operation() throws Exception {
-        String payloadValue = ((String) flowRunner("signRS512Flow")
+    public void signPKCS1RS512Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs1-rs512-flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, is("eyJraWQiOiJlZTBmZjIyYi0yZWQ1LTRmNzQtYTRlMS1hNDc0OWZhZmY3MWEiLCJhbGciOiJSUzUxMiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.H9ZyrdWaMrPhEmmPGE4WDpg-2fC2KNyg5bkxJW6cEezMVjyObFwJcIJb1Z5xS6PnMG_-azhElsnzINrgSJZD36wd_dW7FAlnHiKDLLExKv4uq5AYJc_7T7GvW9CuztWLkwDSaeC9any7w0z_VHD9K1elrT5yXYm1uIfGaO8mRCtFWM7O0ua1oXHfbMe7YUWvTdU6NnkTP4UYyBZe8zf5ANPQl9B5wO8Q0x0hsX7OPx9EdTxMIlFdEszNAJbXSLbZylBXb-Fnl5ucwoWtz6pBbbWrgLUmO_JVPONqju_4sXHouKSJKhEi8tL3vMCmwzG_Nsqs7jeLTDHa_qXCHhUTIg"));
+    }
+
+    @Test
+    public void signPKCS8RS512Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs8-rs512-flow")
                 .run()
                 .getMessage()
                 .getPayload()

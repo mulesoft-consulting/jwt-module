@@ -16,9 +16,11 @@ import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.display.DisplayName;
 import org.mule.runtime.extension.api.exception.ModuleException;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.Map;
 
@@ -39,7 +41,9 @@ public class JwtOperations {
                        @Config JwtConfiguration config) {
         String jws;
         try {
-            PEMParser parser = new PEMParser(new FileReader(config.getKeyPath()));
+            PEMParser parser = new PEMParser(
+                                   new InputStreamReader(
+                                       new FileInputStream(config.getKeyPath()), StandardCharsets.UTF_8));
             Object object = parser.readObject();
             if (object instanceof PrivateKeyInfo) {
                 jws = getJWS(header, payload, config, (PrivateKeyInfo)object);

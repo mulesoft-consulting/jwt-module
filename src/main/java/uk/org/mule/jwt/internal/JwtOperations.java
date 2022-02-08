@@ -40,10 +40,10 @@ public class JwtOperations {
                        @Content(primary = true) Map<String, Object> payload,
                        @Config JwtConfiguration config) {
         String jws;
+        PEMParser parser = null;
         try {
-            PEMParser parser = new PEMParser(
-                                   new InputStreamReader(
-                                       new FileInputStream(config.getKeyPath()), StandardCharsets.UTF_8));
+            parser = new PEMParser(
+                         new InputStreamReader(new FileInputStream(config.getKeyPath()), StandardCharsets.UTF_8));
             Object object = parser.readObject();
             if (object instanceof PrivateKeyInfo) {
                 jws = getJWS(header, payload, config, (PrivateKeyInfo)object);
@@ -65,6 +65,16 @@ public class JwtOperations {
         }
         catch (IOException ioe) {
             throw new ModuleException(JwtError.IO_ERROR, ioe);
+        }
+        finally {
+            try {
+                if (parser != null) {
+                    parser.close();
+                }
+            }
+            catch (IOException ioe) {
+                throw new ModuleException(JwtError.IO_ERROR, ioe);
+            }
         }
         return jws;
     }

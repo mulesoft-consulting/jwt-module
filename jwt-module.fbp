@@ -1,5 +1,5 @@
 <Project projectName="jwt-module">
-  <Jar>./target/jwt-module-0.5.0-mule-plugin.jar</Jar>
+  <Jar>./target/jwt-module-0.5.1-mule-plugin.jar</Jar>
   <AuxClasspathEntry>../../.m2/repository/io/jsonwebtoken/jjwt-api/0.11.2/jjwt-api-0.11.2.jar</AuxClasspathEntry>
   <AuxClasspathEntry>../../.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.70/bcpkix-jdk15on-1.70.jar</AuxClasspathEntry>
   <AuxClasspathEntry>../../.m2/repository/org/bouncycastle/bcprov-jdk15on/1.70/bcprov-jdk15on-1.70.jar</AuxClasspathEntry>

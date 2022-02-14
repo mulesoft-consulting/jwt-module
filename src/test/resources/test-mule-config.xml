@@ -8,31 +8,43 @@
                 algorithm="RS512"
                 keyPath="${mule.home}/src/test/resources/cert/no-such-file.pem"/>
 
-    <jwt:config name="good-es256-config"
-                algorithm="ES256"
-                keyPath="${mule.home}/src/test/resources/cert/pkcs8-es256-private-key.pem"/>
-
-    <jwt:config name="good-ps256-config"
-                algorithm="PS256"
-                keyPath="${mule.home}/src/test/resources/cert/pkcs8-ps256-private-key.pem"/>
-
-    <jwt:config name="good-rs256-config"
-                algorithm="RS256"
-                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs256-private-key.pem"/>
-
-    <jwt:config name="good-rs384-config"
-                algorithm="RS384"
-                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs384-private-key.pem"/>
-
-    <jwt:config name="good-rs512-config"
-                algorithm="RS512"
-                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs512-private-key.pem"/>
-
     <jwt:config name="invalid-key-config"
                 algorithm="RS512"
                 keyPath="${mule.home}/src/test/resources/cert/pkcs8-es256-private-key.pem"/>
 
-    <flow name="fileNotFoundFlow">
+    <jwt:config name="pkcs1-es256-config"
+                algorithm="ES256"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs1-es256-private-key.pem"/>
+
+    <jwt:config name="pkcs8-es256-config"
+                algorithm="ES256"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-es256-private-key.pem"/>
+
+    <jwt:config name="pkcs1-ps256-config"
+                algorithm="PS256"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-ps256-private-key.pem"/>
+
+    <jwt:config name="pkcs8-ps256-config"
+                algorithm="PS256"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-ps256-private-key.pem"/>
+
+    <jwt:config name="pkcs8-rs256-config"
+                algorithm="RS256"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs256-private-key.pem"/>
+
+    <jwt:config name="pkcs8-rs384-config"
+                algorithm="RS384"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs384-private-key.pem"/>
+
+    <jwt:config name="pkcs1-rs512-config"
+                algorithm="RS512"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs1-rs512-private-key.pem"/>
+
+    <jwt:config name="pkcs8-rs512-config"
+                algorithm="RS512"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs8-rs512-private-key.pem"/>
+
+    <flow name="file-not-found-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"21fe1826-cbbd-48dc-a57e-c896074e2592","alg":"ES256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
         <jwt:sign config-ref="file-not-found-config">
@@ -45,7 +57,7 @@
         </error-handler>
     </flow>
 
-    <flow name="invalidKeyFlow">
+    <flow name="invalid-key-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"21fe1826-cbbd-48dc-a57e-c896074e2592","alg":"ES256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
         <jwt:sign config-ref="invalid-key-config">
@@ -58,42 +70,66 @@
         </error-handler>
     </flow>
 
-    <flow name="signES256Flow">
+    <flow name="sign-pkcs1-es256-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"21fe1826-cbbd-48dc-a57e-c896074e2592","alg":"ES256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
-        <jwt:sign config-ref="good-es256-config">
+        <jwt:sign config-ref="pkcs1-es256-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>
 
-    <flow name="signPS256Flow">
+    <flow name="sign-pkcs8-es256-flow">
+        <set-variable variableName="header" value='#[output application/json --- {"kid":"21fe1826-cbbd-48dc-a57e-c896074e2592","alg":"ES256"}]'/>
+        <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
+        <jwt:sign config-ref="pkcs8-es256-config">
+            <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
+        </jwt:sign>
+    </flow>
+
+    <flow name="sign-pkcs1-ps256-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"6e9f0076-190e-412e-8680-ddbb112e32ce","alg":"PS256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
-        <jwt:sign config-ref="good-ps256-config">
+        <jwt:sign config-ref="pkcs1-ps256-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>
 
-    <flow name="signRS256Flow">
+    <flow name="sign-pkcs8-ps256-flow">
+        <set-variable variableName="header" value='#[output application/json --- {"kid":"6e9f0076-190e-412e-8680-ddbb112e32ce","alg":"PS256"}]'/>
+        <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
+        <jwt:sign config-ref="pkcs8-ps256-config">
+            <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
+        </jwt:sign>
+    </flow>
+
+    <flow name="sign-pkcs8-rs256-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"2abc6cf9-862f-40f6-8105-be5943edded3","alg":"RS256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
-        <jwt:sign config-ref="good-rs256-config">
+        <jwt:sign config-ref="pkcs8-rs256-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>
 
-    <flow name="signRS384Flow">
+    <flow name="sign-pkcs8-rs384-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"4b6e288b-213f-448f-8592-62d642656651","alg":"RS384"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
-        <jwt:sign config-ref="good-rs384-config">
+        <jwt:sign config-ref="pkcs8-rs384-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>
 
-    <flow name="signRS512Flow">
+    <flow name="sign-pkcs1-rs512-flow">
         <set-variable variableName="header" value='#[output application/json --- {"kid":"ee0ff22b-2ed5-4f74-a4e1-a4749faff71a","alg":"RS512"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
-        <jwt:sign config-ref="good-rs512-config">
+        <jwt:sign config-ref="pkcs1-rs512-config">
+            <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
+        </jwt:sign>
+    </flow>
+
+    <flow name="sign-pkcs8-rs512-flow">
+        <set-variable variableName="header" value='#[output application/json --- {"kid":"ee0ff22b-2ed5-4f74-a4e1-a4749faff71a","alg":"RS512"}]'/>
+        <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
+        <jwt:sign config-ref="pkcs8-rs512-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>

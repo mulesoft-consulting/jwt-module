@@ -10,12 +10,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uk.org.mule.jwt</groupId>
+    <groupId>ORG_ID_TOKEN</groupId>
     <artifactId>jwt-module</artifactId>
     <version>0.6.0</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
     <description>A Mule4 plugin that simplifies the process of generating a signed JSON Web Token</description>
+
+    <properties>
+        <bcpkix.version>1.70</bcpkix.version>
+        <jjwt.version>0.11.2</jjwt.version>
+        <munit.extensions.maven.plugin.version>1.1.2</munit.extensions.maven.plugin.version>
+    </properties>
 
     <build>
         <plugins>
@@ -44,22 +50,31 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.70</version>
+            <version>${bcpkix.version}</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>Exchange2</id>
+            <name>Exchange2 Repository</name>
+            <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 </project>

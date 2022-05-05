@@ -12,10 +12,33 @@
 
     <groupId>uk.org.mule.jwt</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>0.5.1</version>
+    <version>0.6.0</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
     <description>A Mule4 plugin that simplifies the process of generating a signed JSON Web Token</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.5.2.0</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>

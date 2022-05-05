@@ -12,6 +12,16 @@
                 algorithm="RS512"
                 keyPath="${mule.home}/src/test/resources/cert/pkcs8-es256-private-key.pem"/>
 
+    <jwt:config name="invalid-passphrase-config"
+                algorithm="RS512"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs1-encrypted-rs512-private-key.pem"
+                passphrase="thisisaphrase"/>
+
+    <jwt:config name="pkcs1-encrypted-rs512-config"
+                algorithm="RS512"
+                keyPath="${mule.home}/src/test/resources/cert/pkcs1-encrypted-rs512-private-key.pem"
+                passphrase="foobar"/>
+
     <jwt:config name="pkcs1-es256-config"
                 algorithm="ES256"
                 keyPath="${mule.home}/src/test/resources/cert/pkcs1-es256-private-key.pem"/>
@@ -61,6 +71,19 @@
         <set-variable variableName="header" value='#[output application/json --- {"kid":"21fe1826-cbbd-48dc-a57e-c896074e2592","alg":"ES256"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
         <jwt:sign config-ref="invalid-key-config">
+            <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
+        </jwt:sign>
+        <error-handler>
+            <on-error-continue enableNotifications="false" logException="false" type="JWT:INVALID_KEY">
+                <set-payload value="INVALID_KEY error raised and handled"/>
+            </on-error-continue>
+        </error-handler>
+    </flow>
+
+    <flow name="invalid-passphrase-flow">
+        <set-variable variableName="header" value='#[output application/json --- {"kid":"ee0ff22b-2ed5-4f74-a4e1-a4749faff71a","alg":"RS512"}]'/>
+        <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
+        <jwt:sign config-ref="invalid-passphrase-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
         <error-handler>
@@ -122,6 +145,14 @@
         <set-variable variableName="header" value='#[output application/json --- {"kid":"ee0ff22b-2ed5-4f74-a4e1-a4749faff71a","alg":"RS512"}]'/>
         <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
         <jwt:sign config-ref="pkcs1-rs512-config">
+            <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
+        </jwt:sign>
+    </flow>
+
+    <flow name="sign-pkcs1-encrypted-rs512-flow">
+        <set-variable variableName="header" value='#[output application/json --- {"kid":"ee0ff22b-2ed5-4f74-a4e1-a4749faff71a","alg":"RS512"}]'/>
+        <set-payload value='#[output application/json --- {"aud":"service.gov.uk","iss":"12345","iat":1516239022}]'/>
+        <jwt:sign config-ref="pkcs1-encrypted-rs512-config">
             <jwt:header><![CDATA[#[vars.header]]]></jwt:header>
         </jwt:sign>
     </flow>

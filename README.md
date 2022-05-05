@@ -6,20 +6,17 @@ This repository contains a module that extends Mule 4 to simplify the generation
 
 Once incorporated into your Anypoint Studio project, it provides a single "Sign" component which allows for simple configuration.
 
-## Installation
+## Deploying to Exchange
 
-Download the release JAR file and load it into your Anypoint Studio Maven repository. Once present, you can add a dependency to your pom.xml to incorporate the module into your Mule project:
+To deploy the extension to Anypoint Exchange, run the script named deploy.sh as follows:
 
-```xml
-<dependency>
-  <groupId>uk.org.mule.jwt</groupId>
-  <artifactId>jwt-module</artifactId>
-  <version>0.6.0</version>
-  <classifier>mule-plugin</classifier>
-</dependency>
-```
+`./deploy.sh <YOUR_ORG_ID>`
+
+Please ensure that your Maven settings.xml file has been configured with the correct Anypoint Exchange credentials.
 
 ## Usage
+
+Once the module has been deployed to Exchange, you can add it to your project by following the usual steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to).
 
 ### Appearance
 

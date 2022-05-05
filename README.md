@@ -12,7 +12,7 @@ To deploy the module to Anypoint Exchange, run the script named deploy.sh as fol
 
 `./deploy.sh <YOUR_ORG_ID>`
 
-Please ensure that your Maven settings.xml file has been configured with the correct Anypoint Exchange credentials.
+Please ensure that your Maven `settings.xml` file has been configured with the correct Anypoint Exchange credentials.
 
 ## Usage
 

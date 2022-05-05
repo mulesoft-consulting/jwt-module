@@ -18,6 +18,8 @@ Please ensure that your Maven `settings.xml` file has been configured with the c
 
 Once the module has been deployed to Exchange, you can add it to your project by following the usual steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to).
 
+![Mule Palette](/images/mule-palette.png)
+
 ### Appearance
 
 ![JWT Flow](/images/jwt-flow.png)

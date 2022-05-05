@@ -14,7 +14,7 @@ Download the release JAR file and load it into your Anypoint Studio Maven reposi
 <dependency>
   <groupId>uk.org.mule.jwt</groupId>
   <artifactId>jwt-module</artifactId>
-  <version>0.5.1</version>
+  <version>0.6.0</version>
   <classifier>mule-plugin</classifier>
 </dependency>
 ```
@@ -38,6 +38,7 @@ The component also requires that an associated configuration is defined that spe
 + The cryptographic algorithm to be used for signing
 + The location of the `Private Key File` to be used during signing
     + It is recommended to make use of the `${mule.home}` and `${app.name}` properties to avoid hardcoding
++ The passphrase that was used to encrypt the private key (optional)
 
 ![Configuration](/images/config-parameters.png)
 

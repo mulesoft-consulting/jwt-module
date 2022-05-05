@@ -37,6 +37,26 @@ public class JwtOperationsTestCase extends MuleArtifactFunctionalTestCase {
     }
 
     @Test
+    public void invalidPassphraseOperation() throws Exception {
+        String payloadValue = ((String) flowRunner("invalid-passphrase-flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, is("INVALID_KEY error raised and handled"));
+    }
+
+    @Test
+    public void signPKCS1EncryptedRS512Operation() throws Exception {
+        String payloadValue = ((String) flowRunner("sign-pkcs1-encrypted-rs512-flow")
+                .run()
+                .getMessage()
+                .getPayload()
+                .getValue());
+        assertThat(payloadValue, is("eyJraWQiOiJlZTBmZjIyYi0yZWQ1LTRmNzQtYTRlMS1hNDc0OWZhZmY3MWEiLCJhbGciOiJSUzUxMiJ9.eyJhdWQiOiJzZXJ2aWNlLmdvdi51ayIsImlzcyI6IjEyMzQ1IiwiaWF0IjoxNTE2MjM5MDIyfQ.mEgEQJtKfG4l-PhTfTEDoGTcLK-yN45Id7l6p2gxmqZ2gSyqYghxQDieVvSBH5JE8azQsg92govGawOWYaC6Atzwi8wuMDnlCqmJgL0cdDqBA0jH_YlrMWk7QdBLtDx9tY-avbZz1O5OoZy8rnuwhP3Xi2NkkG9dlTOjjWsM0xUA2YQ2mPpLx8Y92vNUPTI-KgHdbsNmZccdVSOJmNjbeM57P8jEm5VVVU4dEd99XL33XWfujJZYo0T3JQJKA272bXkX-83QQfCbEEHMLs21tDzZKZNAI7Woqf5hUpsRbj0syyP8jg_CCuT_6vOglHQvn90a--wLs50NxT7NtdHWTbyePWJSaP8Dh4qnpFk6QCYOVLe_fYDE3HL9DtOqWx2D_2rd-a0aj6OM3e9byhNAk6tG52gV1Bh5KSfdHGv0PNga9CkqfJ5yNnaCde1EvYNCs4yzCY6xq8Yal2dSS1F1zQMYsNCdahrlKbZB8apuRLJ3wwHgBZcQUJu1MEJQjfwBM9zJVlyqfeXmy7IKioHOvfx75esrDRd61njAbgaJw39o_EvQhmm_jCHMG5L5aoHaytq9zwXey4_DcqvI26OVNBBwt4i5UTVosmpscm9K0hk1H31UtFqgyZa9VwiczPOrDt_1qibUtOQFz9__F-oBa1c9Gx1tbyC1keDv61fZk88"));
+    }
+
+    @Test
     public void signPKCS1ES256Operation() throws Exception {
         String payloadValue = ((String) flowRunner("sign-pkcs1-es256-flow")
                 .run()

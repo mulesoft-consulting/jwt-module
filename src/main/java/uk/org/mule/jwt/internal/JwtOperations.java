@@ -4,10 +4,13 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.InvalidKeyException;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.openssl.PEMDecryptorProvider;
+import org.bouncycastle.openssl.PEMEncryptedKeyPair;
 import org.bouncycastle.openssl.PEMException;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 import org.mule.runtime.extension.api.annotation.error.Throws;
 import org.mule.runtime.extension.api.annotation.param.Config;
 import org.mule.runtime.extension.api.annotation.param.Content;
@@ -45,17 +48,25 @@ public class JwtOperations {
             parser = new PEMParser(
                          new InputStreamReader(new FileInputStream(config.getKeyPath()), StandardCharsets.UTF_8));
             Object object = parser.readObject();
+            PrivateKeyInfo keyInfo;
             if (object instanceof PrivateKeyInfo) {
-                jws = getJWS(header, payload, config, (PrivateKeyInfo)object);
+                keyInfo = ((PrivateKeyInfo)object);
             }
             else if (object instanceof PEMKeyPair) {
                 PEMKeyPair keyPair = ((PEMKeyPair)object);
-                PrivateKeyInfo keyInfo = keyPair.getPrivateKeyInfo();
-                jws = getJWS(header, payload, config, keyInfo);
+                keyInfo = keyPair.getPrivateKeyInfo();
+            }
+            else if (object instanceof PEMEncryptedKeyPair) {
+                PEMEncryptedKeyPair encryptedKeyPair = ((PEMEncryptedKeyPair)object);
+                PEMDecryptorProvider provider =
+                        new JcePEMDecryptorProviderBuilder().build(config.getPassphrase().toCharArray());
+                PEMKeyPair keyPair = encryptedKeyPair.decryptKeyPair(provider);
+                keyInfo = keyPair.getPrivateKeyInfo();
             }
             else {
                 throw new InvalidKeyException(config.getKeyPath() + " is not a PrivateKey, but " + object.getClass());
             }
+            jws = getJWS(header, payload, config, keyInfo);
         }
         catch (FileNotFoundException fnfe) {
             throw new ModuleException(JwtError.FILE_NOT_FOUND, fnfe);

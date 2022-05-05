@@ -8,7 +8,7 @@ Once incorporated into your Anypoint Studio project, it provides a single "Sign"
 
 ## Deploying to Exchange
 
-To deploy the extension to Anypoint Exchange, run the script named deploy.sh as follows:
+To deploy the module to Anypoint Exchange, run the script named deploy.sh as follows:
 
 `./deploy.sh <YOUR_ORG_ID>`
 

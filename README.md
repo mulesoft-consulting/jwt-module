@@ -2,9 +2,18 @@
 
 ## Introduction
 
-This repository contains a module that extends Mule 4 to simplify the generation of a signed [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token).
+JSON Web Token (JWT) is an open standard ([RFC 7519](https://tools.ietf.org/html/rfc7519)) for securely transmitting information between parties as a JSON object.
+This information can be verified and trusted because it is digitally signed.
+When tokens are signed using public/private key pairs, the signature also certifies that only the party holding the private key is the one that signed it.
 
-Once incorporated into your Anypoint Studio project, it provides a single "Sign" component which allows for simple configuration.
+To-date, generating a signed JWT has involved writing code, either in DataWeave or Java, that completes the tasks of:
+
++ Encoding the JSON-formatted header information
++ Encoding the JSON-formatted payload information
++ Constructing the signature by applying a cryptographic algorithm
++ Combining the results into a Base64url encoded final result
+
+This repository contains a module that extends Mule 4 to simplify this task, and remove the need for coding effort.
 
 ## Deploying to Exchange
 
@@ -22,17 +31,19 @@ Please ensure that your Maven `settings.xml` file has been configured with the c
 
 ## Usage
 
-Once the module has been deployed to Exchange, you can add it to your project by following the usual steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to).
+Once the module has been deployed to Exchange, you can add it to your project by following the steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to) to make it available in your Mule Palette.
 
 ![Mule Palette](/images/mule-palette.png)
 
 ### Appearance
 
+The "Sign" component can then be placed into your flow like any other component.
+
 ![JWT Flow](/images/jwt-flow.png)
 
 ### Component
 
-The "Sign" component can be placed into your flow like any other component, and allows you to specify the source for the JSON-formatted `Header` and `Payload` parts of the [JWT structure](https://en.wikipedia.org/wiki/JSON_Web_Token#Structure):
+The "Sign" component allows you to specify the source for the JSON-formatted `Header` and `Payload` parts of the [JWT structure](https://en.wikipedia.org/wiki/JSON_Web_Token#Structure):
 
 ![Sign parameters](/images/sign-parameters.png)
 

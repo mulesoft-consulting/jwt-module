@@ -8,9 +8,15 @@ Once incorporated into your Anypoint Studio project, it provides a single "Sign"
 
 ## Deploying to Exchange
 
-To deploy the module to Anypoint Exchange, run the script named deploy.sh as follows:
+It is recommended to deploy the module to [Anypoint Exchange](https://docs.mulesoft.com/exchange/), to make it available within your organization.
 
-`./deploy.sh <YOUR_ORG_ID>`
+To do this follow the steps below:
+
+1. Clone this repository to your local machine
+2. Open a terminal window, and navigate to the root directory of the repository
+3. Identify your Anypoint Platform Organization ID, see [this description](https://help.mulesoft.com/s/article/How-to-know-my-Organization-ID-Org-ID-on-the-Anypoint-Platform) if you're not sure how to do this
+4. Execute the following command in your terminal window, replacing `<YOUR_ORG_ID>`
+> `./deploy.sh <YOUR_ORG_ID>`
 
 Please ensure that your Maven `settings.xml` file has been configured with the correct Anypoint Exchange credentials.
 

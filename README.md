@@ -81,6 +81,6 @@ This module makes use of the following 3rd party libraries:
 ## Notes
 
 This module makes use of the BouncyCastle [PEMParser](https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/openssl/PEMParser.html) to parse the `Private Key File`, which expects the private key used for signing to be supplied in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
-Some example private keys, used during automated testing, can be found in this repository at [src/test/resources/cert](https://github.com/mulesoft-consulting/jwt-module/tree/main/src/test/resources/cert).
+Some example private keys, used during automated testing, can be found in this repository at [src/test/resources/cert](https://github.com/mulesoft-catalyst/jwt-module/tree/main/src/test/resources/cert).
 
 If you are not sure whether your key meets this requirement, it is recommended to convert it into the [PKCS #8](https://en.wikipedia.org/wiki/PKCS_8) format, using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line or via online tools such as those at [8gwifi.org](https://8gwifi.org/).

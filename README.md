@@ -6,7 +6,7 @@ JSON Web Token (JWT) is an open standard ([RFC 7519](https://tools.ietf.org/html
 This information can be verified and trusted because it is digitally signed.
 When tokens are signed using public/private key pairs, the signature also certifies that only the party holding the private key is the one that signed it.
 
-To-date, generating a signed JWT has involved writing code, either in DataWeave or Java, that completes the tasks of:
+To-date, generating a signed JWT has involved writing code, sometimes in DataWeave or often Java, that completes the tasks of:
 
 + Encoding the JSON-formatted header information
 + Encoding the JSON-formatted payload information

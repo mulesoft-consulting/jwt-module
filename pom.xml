@@ -12,14 +12,14 @@
 
     <groupId>ORG_ID_TOKEN</groupId>
     <artifactId>jwt-module</artifactId>
-    <version>0.6.0</version>
+    <version>0.7.0</version>
     <packaging>mule-extension</packaging>
     <name>JWT Module</name>
     <description>A Mule4 plugin that simplifies the process of generating a signed JSON Web Token</description>
 
     <properties>
         <bcpkix.version>1.70</bcpkix.version>
-        <jjwt.version>0.11.2</jjwt.version>
+        <jjwt.version>0.11.5</jjwt.version>
         <munit.extensions.maven.plugin.version>1.1.2</munit.extensions.maven.plugin.version>
     </properties>
 

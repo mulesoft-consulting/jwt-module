@@ -76,7 +76,7 @@ The Sign component can result in one of the following errors occuring, if mis-co
 This module makes use of the following 3rd party libraries:
 
 + The [jwt.io](https://jwt.io/) Java JWT library, [jjwt](https://github.com/jwtk/jjwt)
-+ The [org.bouncycastle](https://javadoc.io/doc/org.bouncycastle/bcpkix-jdk15on/latest/index.html) cryptography library
++ The [org.bouncycastle](https://javadoc.io/doc/org.bouncycastle/bcpkix-jdk18on/latest/index.html) cryptography library
 
 ## Notes
 

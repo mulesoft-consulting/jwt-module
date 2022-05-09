@@ -18,7 +18,7 @@
     <description>A Mule4 plugin that simplifies the process of generating a signed JSON Web Token</description>
 
     <properties>
-        <bcpkix.version>1.70</bcpkix.version>
+        <bcpkix.version>1.71</bcpkix.version>
         <jjwt.version>0.11.5</jjwt.version>
         <munit.extensions.maven.plugin.version>1.1.2</munit.extensions.maven.plugin.version>
     </properties>
@@ -64,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
+            <artifactId>bcpkix-jdk18on</artifactId>
             <version>${bcpkix.version}</version>
         </dependency>
     </dependencies>

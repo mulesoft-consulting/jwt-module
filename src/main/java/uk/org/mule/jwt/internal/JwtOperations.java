@@ -90,9 +90,9 @@ public class JwtOperations {
         return jws;
     }
 
-    private String getJWS(@Optional @Content Map<String, Object> header,
-                          @Content(primary = true) Map<String, Object> payload,
-                          @Config JwtConfiguration config,
+    private String getJWS(Map<String, Object> header,
+                          Map<String, Object> payload,
+                          JwtConfiguration config,
                           PrivateKeyInfo privateKeyInfo) throws PEMException {
         String jws = null;
         if (privateKeyInfo != null) {

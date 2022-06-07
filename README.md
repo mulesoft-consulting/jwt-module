@@ -29,6 +29,19 @@ To do this follow the steps below:
 
 Please ensure that your Maven `settings.xml` file has been configured with the correct Anypoint Exchange credentials.
 
+For deployment to the EU Control Plane, please update the `<distributionManagement>` element inside the `pom.xml` as follows:
+
+```xml
+<distributionManagement>
+  <repository>
+    <id>Exchange2</id>
+    <name>Exchange2 Repository</name>
+    <url>https://maven.eu1.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
+    <layout>default</layout>
+  </repository>
+</distributionManagement>
+```
+
 ## Usage
 
 Once the module has been deployed to Exchange, you can add it to your project by following the steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to) to make it available in your Mule Palette.

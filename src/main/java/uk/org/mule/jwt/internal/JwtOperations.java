@@ -71,8 +71,8 @@ public class JwtOperations {
         catch (FileNotFoundException fnfe) {
             throw new ModuleException(JwtError.FILE_NOT_FOUND, fnfe);
         }
-        catch (InvalidKeyException | PEMException ke) {
-            throw new ModuleException(JwtError.INVALID_KEY, ke);
+        catch (InvalidKeyException | PEMException ike) {
+            throw new ModuleException(JwtError.INVALID_KEY, ike);
         }
         catch (IOException ioe) {
             throw new ModuleException(JwtError.IO_ERROR, ioe);

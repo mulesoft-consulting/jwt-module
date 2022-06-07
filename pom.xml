@@ -21,6 +21,7 @@
         <bcpkix.version>1.71</bcpkix.version>
         <jjwt.version>0.11.5</jjwt.version>
         <munit.extensions.maven.plugin.version>1.1.2</munit.extensions.maven.plugin.version>
+        <spotbugs.version>4.7.0.0</spotbugs.version>
     </properties>
 
     <build>
@@ -28,7 +29,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.5.2.0</version>
+                <version>${spotbugs.version}</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>

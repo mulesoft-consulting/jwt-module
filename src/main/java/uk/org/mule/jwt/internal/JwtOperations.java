@@ -71,8 +71,8 @@ public class JwtOperations {
         catch (FileNotFoundException fnfe) {
             throw new ModuleException(JwtError.FILE_NOT_FOUND, fnfe);
         }
-        catch (InvalidKeyException | PEMException ke) {
-            throw new ModuleException(JwtError.INVALID_KEY, ke);
+        catch (InvalidKeyException | PEMException ike) {
+            throw new ModuleException(JwtError.INVALID_KEY, ike);
         }
         catch (IOException ioe) {
             throw new ModuleException(JwtError.IO_ERROR, ioe);
@@ -90,9 +90,9 @@ public class JwtOperations {
         return jws;
     }
 
-    private String getJWS(@Optional @Content Map<String, Object> header,
-                          @Content(primary = true) Map<String, Object> payload,
-                          @Config JwtConfiguration config,
+    private String getJWS(Map<String, Object> header,
+                          Map<String, Object> payload,
+                          JwtConfiguration config,
                           PrivateKeyInfo privateKeyInfo) throws PEMException {
         String jws = null;
         if (privateKeyInfo != null) {

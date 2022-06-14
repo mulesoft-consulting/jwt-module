@@ -29,6 +29,19 @@ To do this follow the steps below:
 
 Please ensure that your Maven `settings.xml` file has been configured with the correct Anypoint Exchange credentials.
 
+For deployment to the EU Control Plane, please update the `<distributionManagement>` element inside the `pom.xml` as follows:
+
+```xml
+<distributionManagement>
+  <repository>
+    <id>Exchange2</id>
+    <name>Exchange2 Repository</name>
+    <url>https://maven.eu1.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
+    <layout>default</layout>
+  </repository>
+</distributionManagement>
+```
+
 ## Usage
 
 Once the module has been deployed to Exchange, you can add it to your project by following the steps outlined at [https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to](https://docs.mulesoft.com/studio/7.12/add-modules-in-studio-to) to make it available in your Mule Palette.
@@ -76,11 +89,11 @@ The Sign component can result in one of the following errors occuring, if mis-co
 This module makes use of the following 3rd party libraries:
 
 + The [jwt.io](https://jwt.io/) Java JWT library, [jjwt](https://github.com/jwtk/jjwt)
-+ The [org.bouncycastle](https://javadoc.io/doc/org.bouncycastle/bcpkix-jdk15on/latest/index.html) cryptography library
++ The [org.bouncycastle](https://javadoc.io/doc/org.bouncycastle/bcpkix-jdk18on/latest/index.html) cryptography library
 
 ## Notes
 
-This module makes use of the BouncyCastle [PEMParser](https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/openssl/PEMParser.html) to parse the `Private Key File`, which expects the private key used for signing to be supplied in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
+This module makes use of the BouncyCastle [PEMParser](https://www.bouncycastle.org/docs/pkixdocs1.8on/org/bouncycastle/openssl/PEMParser.html) to parse the `Private Key File`, which expects the private key used for signing to be supplied in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
 Some example private keys, used during automated testing, can be found in this repository at [src/test/resources/cert](https://github.com/mulesoft-catalyst/jwt-module/tree/main/src/test/resources/cert).
 
 If you are not sure whether your key meets this requirement, it is recommended to convert it into the [PKCS #8](https://en.wikipedia.org/wiki/PKCS_8) format, using the [`openssl`](https://www.openssl.org/docs/man1.1.1/man1/openssl-pkcs8.html) command line or via online tools such as those at [8gwifi.org](https://8gwifi.org/).

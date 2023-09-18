@@ -18,6 +18,8 @@ import org.mule.runtime.extension.api.annotation.param.MediaType;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.display.DisplayName;
 import org.mule.runtime.extension.api.exception.ModuleException;
+import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -57,6 +59,7 @@ public class JwtOperations {
                 keyInfo = keyPair.getPrivateKeyInfo();
             }
             else if (object instanceof PEMEncryptedKeyPair) {
+				Security.addProvider(new BouncyCastleProvider());
                 PEMEncryptedKeyPair encryptedKeyPair = ((PEMEncryptedKeyPair)object);
                 PEMDecryptorProvider provider =
                         new JcePEMDecryptorProviderBuilder().build(config.getPassphrase().toCharArray());
